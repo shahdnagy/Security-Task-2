@@ -96,7 +96,6 @@ public class DES {
             R = xor(L, feistel(R, subkeys[i]));
             L = temp;
         }
-
         String combined = R + L;
         String Plain = permute(combined, FP);
         return binaryToHex(Plain);
