@@ -60,22 +60,23 @@ public class AES {
         return "0x" + intArrayToHex(state);
     }
 
-    public String encrypt(String plainText, String key) {
-        int[] state = hexToIntArray(plainText);
+    public String decrypt(String cipherText, String key) {
+        // Students should complete this part
+        int[] state = hexToIntArray(cipherText);
         int[][] roundKeys = keyExpansion(hexToIntArray(key));
 
-        addRoundKey(state, roundKeys[0]);
+        addRoundKey(state, roundKeys[NR]);
 
-        for (int round = 1; round < NR; round++) {
-            subBytes(state, SBOX);
-            shiftRows(state);
-            mixColumns(state);
-            addRoundKey(state, roundKeys[round]);
+        for (int round = NR-1; round > 0; round--) {
+            invShiftRows(state);
+            subBytes(state, INV_SBOX);
+            addRoundKey(state, roundKeys[round]); // round 9
+            invMixColumns(state);
         }
 
-        subBytes(state, SBOX);
-        shiftRows(state);
-        addRoundKey(state, roundKeys[NR]);
+        invShiftRows(state);
+        subBytes(state, INV_SBOX);
+        addRoundKey(state, roundKeys[0]);
 
         return "0x" + intArrayToHex(state);
     }
