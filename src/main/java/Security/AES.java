@@ -60,9 +60,24 @@ public class AES {
         return "0x" + intArrayToHex(state);
     }
 
-    public String decrypt(String cipherText, String key) {
-        // Students should complete this part
-        return null;
+    public String encrypt(String plainText, String key) {
+        int[] state = hexToIntArray(plainText);
+        int[][] roundKeys = keyExpansion(hexToIntArray(key));
+
+        addRoundKey(state, roundKeys[0]);
+
+        for (int round = 1; round < NR; round++) {
+            subBytes(state, SBOX);
+            shiftRows(state);
+            mixColumns(state);
+            addRoundKey(state, roundKeys[round]);
+        }
+
+        subBytes(state, SBOX);
+        shiftRows(state);
+        addRoundKey(state, roundKeys[NR]);
+
+        return "0x" + intArrayToHex(state);
     }
 
     // --- AES Transformations ---
