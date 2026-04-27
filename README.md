@@ -33,3 +33,24 @@ The goal is to demonstrate how encryption and decryption techniques work in a cl
 
 ## 📂 Project Structure
 Each algorithm is implemented in a separate Java file:
+
+
+---
+
+## 🚀 Getting Started
+
+### Requirements
+- Java JDK (8 or higher)
+- Any IDE (IntelliJ, Eclipse, VS Code)
+
+### Run the Project
+1. Open the project in your IDE  
+2. Choose any algorithm file  
+3. Run the file  
+4. Enter the required input (text + key)
+
+---
+
+## ⚠️ Disclaimer
+This project is intended for educational purposes only.  
+Some algorithms included (e.g., DES, Caesar) are not secure for real-world applications.
