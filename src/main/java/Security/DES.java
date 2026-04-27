@@ -80,8 +80,6 @@ public class DES {
     }
 
     public String decrypt(String cipherTextHex, String keyHex) {
-        // Students should complete this part
-//        return null;
         String Cipher = hexToBinary(cipherTextHex);
         String keyBin = hexToBinary(keyHex);
 
