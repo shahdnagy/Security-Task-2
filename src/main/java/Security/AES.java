@@ -101,6 +101,22 @@ public class AES {
 
     private void invShiftRows(int[] s) {
         // Students should complete this part
+
+        int t;
+        t=s[13];
+        s[13] = s[9];
+        s[9] = s[5];
+        s[5] = s[1];
+        s[1] = t;
+
+        t = s[2]; s[2] = s[10]; s[10] = t;
+        t = s[6]; s[6] = s[14]; s[14] = t;
+
+        t = s[3];
+        s[3] = s[7];
+        s[7] = s[11];
+        s[11] = s[15];
+        s[15] = t;
     }
 
     private void mixColumns(int[] s) {
@@ -116,6 +132,16 @@ public class AES {
 
     private void invMixColumns(int[] s) {
         // Students should complete this part
+
+                   for (int c = 0; c < 4; c++) {
+                int i = 4 * c;
+                int a0 = s[i], a1 = s[i + 1], a2 = s[i + 2], a3 = s[i + 3];
+
+                s[i]     = mul(0x0e, a0) ^ mul(0x0b, a1) ^ mul(0x0d, a2) ^ mul(0x09, a3);
+                s[i + 1] = mul(0x09, a0) ^ mul(0x0e, a1) ^ mul(0x0b, a2) ^ mul(0x0d, a3);
+                s[i + 2] = mul(0x0d, a0) ^ mul(0x09, a1) ^ mul(0x0e, a2) ^ mul(0x0b, a3);
+                s[i + 3] = mul(0x0b, a0) ^ mul(0x0d, a1) ^ mul(0x09, a2) ^ mul(0x0e, a3);
+           } 
     }
 
     // --- Math & Key Expansion ---
