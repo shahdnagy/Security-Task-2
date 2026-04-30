@@ -92,6 +92,34 @@ public class PlayfairCipher {
     // TODO: Implement this method to decrypt the ciphertext back to plaintext
     public String decrypt(String text) {
         // Students should complete this part
-        return null;
+        text = prepareText(text);
+        StringBuilder dencryptedText = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i += 2) {
+            int[] pos1 = findPosition(text.charAt(i));
+            int[] pos2 = findPosition(text.charAt(i + 1));
+
+            if (pos1 == null || pos2 == null) continue; // Safety check
+
+            if (pos1[0] == pos2[0]) {  // Same row
+                dencryptedText.append(keyMatrix[pos1[0]][((pos1[1] -1)+5) % 5]);
+                dencryptedText.append(keyMatrix[pos2[0]][((pos2[1] -1)+5) % 5]);
+            } else if (pos1[1] == pos2[1]) {  // Same column
+                dencryptedText.append(keyMatrix[((pos1[0] - 1)+5) % 5][pos1[1]]);
+                dencryptedText.append(keyMatrix[((pos2[0] - 1)+5) % 5][pos2[1]]);
+            } else {  // Rectangle swap
+                dencryptedText.append(keyMatrix[pos1[0]][pos2[1]]);
+                dencryptedText.append(keyMatrix[pos2[0]][pos1[1]]);
+            }
+        }
+        // return encryptedText.toString();
+        String result =  dencryptedText.toString();
+        //remove any x in the middle
+        result = result.replaceAll("([A-Z])X\\1", "$1$1");
+        //remove any ending x to match the tests
+        if (result.endsWith("X")) {
+            result = result.substring(0, result.length() - 1);
+        }
+        return result;
     }
 }
